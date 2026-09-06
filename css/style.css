@@ -293,18 +293,6 @@ h3 {
 
 .hero-image-detail img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-.hero-note {
-    position: absolute;
-    right: -60px;
-    bottom: 108px;
-    margin: 0;
-    color: rgba(245, 238, 232, 0.48);
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    letter-spacing: 0.16em;
-    transform: rotate(90deg);
-}
-
 .scroll-cue {
     position: absolute;
     left: 32px;
@@ -346,10 +334,16 @@ h3 {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(24px, 4vw, 56px);
+    align-items: stretch;
 }
 
-.service-card { overflow: hidden; background: var(--cream); }
-.service-card-dance { margin-top: 86px; }
+.service-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--cream);
+}
 
 .service-card-image {
     position: relative;
@@ -377,9 +371,15 @@ h3 {
     font-size: 2rem;
 }
 
-.service-card-copy { padding: clamp(30px, 5vw, 56px); }
+.service-card-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(30px, 5vw, 56px);
+}
 .service-card-copy > p:not(.eyebrow) { max-width: 510px; color: var(--muted); }
 .service-facts { margin: 28px 0 32px; border-top: 1px solid var(--line); }
+.service-card-copy .text-link { align-self: flex-start; margin-top: auto; }
 
 .service-facts div {
     display: flex;
@@ -785,7 +785,6 @@ h3 {
     .service-grid,
     .event-grid,
     .story-grid { grid-template-columns: 1fr; }
-    .service-card-dance { margin-top: 0; }
     .service-card-image { height: min(680px, 98vw); }
     .about { grid-template-columns: minmax(230px, 0.7fr) minmax(0, 1fr); gap: 60px; }
     .section-heading-row { align-items: start; flex-direction: column; gap: 12px; }
@@ -805,7 +804,6 @@ h3 {
     h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
     .hero-actions { align-items: flex-start; flex-direction: column; gap: 22px; }
     .hero-visual { width: 96%; padding-left: 22px; }
-    .hero-note { display: none; }
     .intro-section { padding-block: 100px; }
     .statement { font-size: 2.35rem; }
     .about { grid-template-columns: 1fr; padding-inline: 14px; }

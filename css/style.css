@@ -398,6 +398,29 @@ h3 {
 
 .service-facts dd { margin: 0; color: var(--wine); font-family: var(--serif); font-size: 1.1rem; }
 
+@media (min-width: 981px) {
+    .service-grid {
+        grid-auto-rows: 1fr;
+    }
+
+    .service-card {
+        align-self: stretch;
+        min-height: 100%;
+    }
+
+    .service-card-image {
+        flex: 0 0 clamp(380px, 49vw, 590px);
+    }
+
+    .service-card-copy > p:not(.eyebrow) {
+        min-height: 5.1em;
+    }
+
+    .service-facts {
+        width: 100%;
+    }
+}
+
 .about {
     display: grid;
     grid-template-columns: minmax(300px, 0.76fr) minmax(0, 1fr);

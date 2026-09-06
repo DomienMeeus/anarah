@@ -1,78 +1,108 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.site-header');
     const navToggle = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('nav');
+    const navLinks = document.querySelector('.nav-links');
+    const sectionLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 
-    if (navToggle && nav) {
-        navToggle.addEventListener('click', function() {
-            const isOpen = nav.classList.toggle('nav-open');
-            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
+    const setMenu = (open) => {
+        if (!navToggle || !navLinks) return;
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Sluit menu' : 'Open menu');
+        navLinks.classList.toggle('open', open);
+        header?.classList.toggle('menu-visible', open);
+        document.body.classList.toggle('menu-open', open);
+    };
 
-        document.addEventListener('click', function(event) {
-            if (!nav.contains(event.target) && nav.classList.contains('nav-open')) {
-                nav.classList.remove('nav-open');
-                navToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
+    navToggle?.addEventListener('click', () => {
+        setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    sectionLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setMenu(false);
+    });
+
+    const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 24);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
     }
 
-    function handleAjaxForm(formId, successMessageId) {
-        const form = document.getElementById(formId);
-        if (!form) return;
+    const sections = document.querySelectorAll('main section[id]');
+    if ('IntersectionObserver' in window) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                sectionLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+                });
+            });
+        }, { rootMargin: '-25% 0px -65% 0px' });
+        sections.forEach((section) => sectionObserver.observe(section));
+    }
 
-        const successMessage = document.getElementById(successMessageId);
+    const privacy = document.getElementById('privacy');
+    const openPrivacyFromHash = () => {
+        if (window.location.hash === '#privacy' && privacy) privacy.open = true;
+    };
+    openPrivacyFromHash();
+    window.addEventListener('hashchange', openPrivacyFromHash);
+
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('contactThanks');
+
+    form?.addEventListener('submit', async (event) => {
+        event.preventDefault();
         const button = form.querySelector('button[type="submit"]');
-        const buttonText = button ? button.textContent : 'Verstuur';
+        const originalText = button?.textContent || 'Verstuur bericht';
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
 
-        form.addEventListener('submit', async function(event) {
-            event.preventDefault();
+        if (button) {
+            button.disabled = true;
+            button.textContent = 'Even geduld…';
+        }
 
-            if (button) {
-                button.disabled = true;
-                button.textContent = 'Versturen...';
-            }
-
-            const formData = new FormData(form);
-            const action = form.action;
-            const payload = {};
-            formData.forEach((value, key) => {
-                payload[key] = value;
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
             });
 
-            try {
-                const response = await fetch(action, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
+            if (!response.ok) throw new Error('Formulier kon niet worden verzonden');
 
-                if (response.ok) {
-                    if (successMessage) {
-                        successMessage.classList.add('visible');
-                    }
-                    form.reset();
-                } else {
-                    throw new Error('Form submit failed');
-                }
-            } catch (error) {
-                const name = payload.name || '';
-                const email = payload.email || '';
-                const message = payload.message || '';
-                const subject = encodeURIComponent(payload.subject || 'Bericht via anarah.be');
-                const body = encodeURIComponent(`Naam: ${name}\nE-mail: ${email}\n\n${message}`);
-                window.location.href = `mailto:connect@anarah.be?subject=${subject}&body=${body}`;
-            } finally {
-                if (button) {
-                    button.disabled = false;
-                    button.textContent = buttonText;
-                }
+            form.reset();
+            if (status) {
+                status.textContent = 'Dankjewel. Je bericht is goed ontvangen.';
+                status.classList.add('visible');
             }
-        });
-    }
-
-    handleAjaxForm('contactForm', 'contactThanks');
-    handleAjaxForm('reviewForm', 'reviewThanks');
+        } catch (error) {
+            const subject = encodeURIComponent('Bericht via anarah.be');
+            const body = encodeURIComponent(`Naam: ${payload.name || ''}\nE-mail: ${payload.email || ''}\nInteresse: ${payload.interest || ''}\n\n${payload.message || ''}`);
+            window.location.href = `mailto:connect@anarah.be?subject=${subject}&body=${body}`;
+        } finally {
+            if (button) {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+    });
 });

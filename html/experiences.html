@@ -66,10 +66,11 @@
                 </div>
             </section>
 
-            <section class="review-submit-section">
+            <section class="review-submit-section contact-panel">
+                <span class="contact-kicker">Share your story</span>
                 <h2>Laat jouw ervaring achter</h2>
 
-                <form id="reviewForm" class="review-form" action="https://api.web3forms.com/submit" method="POST">
+                <form id="reviewForm" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
                     <input type="hidden" name="access_key" value="cdd657ca-5a1e-4d22-bb32-f6017513e68b">
                     <input type="hidden" name="subject" value="Nieuwe review via anarah.be">
                     <input type="checkbox" name="botcheck" style="display: none;">
@@ -86,7 +87,7 @@
 
                     <label>
                         Jouw review
-                        <textarea name="message" placeholder="Wat sloot voor jou aan?" required></textarea>
+                        <textarea name="message" placeholder="Wat sloot voor jou aan?" rows="5" required></textarea>
                     </label>
 
                     <button type="submit" class="btn-action">Verstuur review</button>

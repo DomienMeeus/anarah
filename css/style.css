@@ -394,21 +394,29 @@ body:not(.homepage) .contact-detail-card p {
     color: var(--muted);
 }
 
-.review-form {
-    display: grid;
-    gap: 20px;
-    margin-top: 24px;
+.reviews-section {
+    margin-bottom: clamp(48px, 7vw, 76px);
 }
 
-.review-form label {
+.reviews-grid {
     display: grid;
-    gap: 10px;
-    color: #f4e7df;
-    font-size: 0.95rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
 }
 
-.review-form textarea {
-    min-height: 170px;
+.review-card {
+    padding: 36px;
+}
+
+.review-card p {
+    margin-bottom: 0;
+    text-align: left !important;
+    text-align-last: auto !important;
+}
+
+.review-submit-section {
+    max-width: 720px;
+    margin: 0 auto;
 }
 
 .review-thanks {
@@ -1605,6 +1613,10 @@ body.minimal-page > main {
         grid-template-columns: 1fr;
     }
 
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
     .contact-details-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1651,8 +1663,7 @@ body.minimal-page > main {
         text-align-last: auto;
     }
 
-    .contact-form,
-    .review-form {
+    .contact-form {
         width: 100%;
     }
 
@@ -1677,6 +1688,10 @@ body.minimal-page > main {
     .contact-panel {
         padding: 26px 20px;
         border-radius: 24px;
+    }
+
+    .review-card {
+        padding: 26px 20px;
     }
 
     .contact-calendly-link,

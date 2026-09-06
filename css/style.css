@@ -198,8 +198,7 @@ body:not(.homepage) .review-thanks,
 body:not(.homepage) .form-note,
 body:not(.homepage) footer p,
 body:not(.homepage) .footer-links,
-body:not(.homepage) .event-item p,
-body:not(.homepage) .contact-detail-card p {
+body:not(.homepage) .event-item p {
     text-align: inherit;
     hyphens: manual;
 }
@@ -1464,8 +1463,7 @@ body.minimal-page > main {
 
 .contact-kicker,
 .contact-panel h2,
-.contact-section-heading h2,
-.contact-detail-card h3 {
+.contact-section-heading h2 {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-size: 0.85rem;
@@ -1484,10 +1482,6 @@ body.minimal-page > main {
 .contact-panel h2,
 .contact-section-heading h2 {
     margin: 0 0 22px;
-}
-
-.contact-detail-card h3 {
-    margin: 0 0 10px;
 }
 
 .contact-panel p {
@@ -1548,34 +1542,56 @@ body.minimal-page > main {
     margin-bottom: 32px;
 }
 
-.contact-details-grid {
+.contact-information-card {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.contact-detail-card {
-    padding: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.16);
 }
 
-.contact-detail-card p {
-    margin: 0;
-    color: var(--muted);
+.contact-information-item {
+    display: flex;
+    min-height: 132px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 28px 34px;
+}
+
+.contact-information-item + .contact-information-item {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-information-label {
+    margin-bottom: 10px;
+    color: #b89b5e;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.contact-information-card address,
+.contact-information-card a {
+    color: rgba(243, 226, 255, 0.5);
+    font-size: 1rem;
+    font-style: normal;
     line-height: 1.7;
-}
-
-.contact-detail-card a {
-    color: #f4e7df;
     text-decoration: none;
-    word-break: break-word;
 }
 
-.contact-detail-card a:hover,
-.contact-detail-card a:focus-visible {
+.contact-information-card a {
+    width: fit-content;
+    overflow-wrap: anywhere;
+    transition: color 0.2s ease;
+}
+
+.contact-information-card a:hover,
+.contact-information-card a:focus-visible {
     color: #d7b55b;
 }
 
@@ -1615,10 +1631,6 @@ body.minimal-page > main {
 
     .reviews-grid {
         grid-template-columns: 1fr;
-    }
-
-    .contact-details-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .contact-calendly-panel {
@@ -1707,16 +1719,6 @@ body.minimal-page > main {
         text-align: left;
     }
 
-    .contact-details-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .contact-detail-card {
-        text-align: left;
-        padding: 22px 20px;
-    }
-
     .event-item {
         flex-direction: column;
         align-items: flex-start;
@@ -1784,36 +1786,19 @@ footer,
 footer a {
     color: inherit;
 }
-/* Contactgegevens samen in één balk */
-.contact-detail-card--single {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    width: 100%;
-}
-
-.contact-detail-item h3 {
-    color: #b89b5e;
-    margin-bottom: 0.45rem;
-}
-
-.contact-detail-item p {
-    margin: 0;
-}
-
-.contact-detail-item a {
-    color: rgba(92, 58, 116, 0.75);
-    text-decoration: none;
-}
-
-.contact-detail-item a:hover {
-    color: #b89b5e;
-}
-
 @media (max-width: 768px) {
-    .contact-detail-card--single {
+    .contact-information-card {
         grid-template-columns: 1fr;
-        gap: 1.4rem;
+    }
+
+    .contact-information-item {
+        min-height: auto;
+        padding: 24px;
+    }
+
+    .contact-information-item + .contact-information-item {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-left: 0;
     }
 }
 /* Footer copyright terug in goudkleur */

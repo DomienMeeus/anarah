@@ -19,6 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sectionLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
 
+    document.querySelectorAll('a[href="#top"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            setMenu(false);
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduceMotion ? 'instant' : 'smooth' });
+            history.replaceState(null, '', '#top');
+            const top = document.getElementById('top');
+            top?.setAttribute('tabindex', '-1');
+            top?.focus({ preventScroll: true });
+        });
+    });
+
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') setMenu(false);
     });

@@ -19,6 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sectionLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
 
+    document.querySelectorAll('a[href="#top"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            setMenu(false);
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduceMotion ? 'instant' : 'smooth' });
+            history.replaceState(null, '', '#top');
+            const top = document.getElementById('top');
+            top?.setAttribute('tabindex', '-1');
+            top?.focus({ preventScroll: true });
+        });
+    });
+
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') setMenu(false);
     });
@@ -28,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHeader, { passive: true });
 
     const revealItems = document.querySelectorAll('.reveal');
+    // Enhance only once the script has loaded; content stays visible if it fails.
+    document.documentElement.classList.add('js');
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {

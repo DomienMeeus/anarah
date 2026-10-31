@@ -1,0 +1,7 @@
+/dist/
+.DS_Store
+# Client reference material and original image imports remain local.
+/ANARAH the core - Google Documenten.pdf
+/images/IMG_*.JPG
+/images/IMG_*.PNG
+/output/

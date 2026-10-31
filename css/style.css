@@ -191,7 +191,14 @@ h3 {
 }
 .hero-copy { width: min(82vw, 900px); text-align: center; }
 .hero h1 { margin: 0 0 32px; line-height: 1; }
-.hero h1 img { width: 100%; height: auto; }
+/* Use the full-resolution original as an alpha mask to retain the gold branding. */
+.hero-logo {
+    display: block;
+    background: #ad8f11;
+    -webkit-mask: url('../images/nobglogo.png') center / contain no-repeat;
+    mask: url('../images/nobglogo.png') center / contain no-repeat;
+}
+.hero h1 img { width: 100%; height: auto; opacity: 0; }
 .hero .eyebrow { color: var(--blush); letter-spacing: .24em; }
 .hero-actions { display: flex; align-items: center; gap: 34px; }
 .welcome { padding-top: clamp(100px, 12vw, 170px); text-align: center; }

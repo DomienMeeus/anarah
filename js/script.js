@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHeader, { passive: true });
 
     const revealItems = document.querySelectorAll('.reveal');
+    // Enhance only once the script has loaded; content stays visible if it fails.
+    document.documentElement.classList.add('js');
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {

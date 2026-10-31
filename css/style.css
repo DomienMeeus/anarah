@@ -200,6 +200,7 @@ h3 {
 }
 .hero h1 img { width: 100%; height: auto; opacity: 0; }
 .hero .eyebrow { color: var(--blush); letter-spacing: .24em; }
+.hero-subtitle { display: block; margin: 32px 0 0; font-family: var(--sans); }
 .hero-actions { display: flex; align-items: center; gap: 34px; }
 .welcome { padding-top: clamp(100px, 12vw, 170px); text-align: center; }
 .welcome h2 { max-width: 850px; margin-inline: auto; }

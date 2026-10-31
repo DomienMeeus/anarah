@@ -249,9 +249,18 @@ h3 {
     text-transform: uppercase;
 }
 
-.text-link span { transition: transform 0.2s ease; }
-.text-link:hover span,
-.text-link:focus-visible span { transform: translate(3px, -3px); }
+.arrow-icon {
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    flex-shrink: 0;
+    vertical-align: -0.2em;
+}
+.text-link .arrow-icon { transition: transform 0.2s ease; }
+.text-link:hover .arrow-icon--diagonal,
+.text-link:focus-visible .arrow-icon--diagonal { transform: translate(3px, -3px); }
+.text-link:hover .arrow-icon--up,
+.text-link:focus-visible .arrow-icon--up { transform: translateY(-3px); }
 
 .scroll-cue {
     position: absolute;

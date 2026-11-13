@@ -130,7 +130,7 @@ h3 {
 }
 
 .nav-links a {
-    color: var(--cream);
+    color: var(--gold);
     font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.11em;
@@ -140,17 +140,13 @@ h3 {
 }
 
 .nav-links a:hover,
-.nav-links a:focus-visible,
-.nav-links a.active { color: var(--gold); }
+.nav-links a:focus-visible { color: #fff; }
 
 .nav-links .nav-cta {
     padding: 12px 19px;
     border: 1px solid rgba(245, 238, 232, 0.55);
     border-radius: 999px;
 }
-
-.nav-links .nav-cta:hover,
-.nav-links .nav-cta:focus-visible { color: var(--wine-deep); background: var(--cream); }
 
 .nav-toggle {
     position: relative;
@@ -269,13 +265,17 @@ h3 {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: rgba(245, 238, 232, 0.75);
+    color: var(--gold);
     font-size: 0.65rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-decoration: none;
     text-transform: uppercase;
+    transition: color 0.2s ease;
 }
+
+.scroll-cue:hover,
+.scroll-cue:focus-visible { color: #fff; }
 
 .intro-section { padding-block: clamp(110px, 14vw, 190px); text-align: center; }
 
@@ -408,12 +408,17 @@ h3 {
     border-radius: 50% 50% 2px 2px;
 }
 
+.about-photo-frame {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 50% 50% 2px 2px;
+}
+
 .about-photo img {
     width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
+    height: 100%;
     object-fit: cover;
-    border-radius: 50% 50% 2px 2px;
+    transform: scale(1.45);
 }
 
 .photo-caption {
@@ -591,6 +596,8 @@ h3 {
 
 .contact-intro { align-self: start; }
 .contact-intro > p:not(.eyebrow) { max-width: 490px; color: var(--muted); }
+.contact-intro > .text-link { display: flex; width: fit-content; }
+.contact-intro > .text-link + .text-link { margin-top: 16px; }
 
 .contact-details {
     display: grid;
@@ -671,7 +678,11 @@ h3 {
 }
 
 .footer-brand { display: block; width: min(100%, 360px); }
-.footer-brand img { width: 100%; height: auto; }
+.footer-brand img {
+    width: 100%;
+    height: auto;
+    filter: brightness(0) saturate(100%) invert(54%) sepia(84%) saturate(461%) hue-rotate(10deg) brightness(94%) contrast(93%);
+}
 
 .footer-main > p { margin: 0; color: var(--gold); font-family: var(--serif); font-size: 1.25rem; font-style: italic; }
 
@@ -749,11 +760,10 @@ h3 {
     .nav-links.open { visibility: visible; opacity: 1; }
 
     .nav-links a {
-        font-family: var(--serif);
         font-size: 2.2rem;
         font-weight: 400;
         letter-spacing: 0;
-        text-transform: none;
+        text-transform: uppercase;
     }
 
     .nav-links .nav-cta {
@@ -827,6 +837,10 @@ h3 {
 .detail-copy { padding-top: 24px; }
 .detail-copy p { color: var(--muted); }
 .detail-copy .quote { margin-block: 28px; color: var(--wine-soft); }
+#somatic-dance-info .quote blockquote {
+    padding-left: 24px;
+    border-left: 1px solid var(--gold);
+}
 .booking { padding-block: 35px 120px; }
 .booking-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .booking-card { padding: clamp(28px, 4vw, 48px); border: 1px solid var(--line); }
